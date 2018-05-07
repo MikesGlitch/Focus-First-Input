@@ -4,7 +4,7 @@ focusOnFirstInput = function () {
     focused = false
     for (var i = 0; i < inputs.length; i++) {
       var input = inputs[i]
-      if (elementInViewport(input) && input.type == "text") {
+      if (elementInViewport(input) && (input.type == "text" || input.type == "search")) {
         input.focus()
         focused = true
         break
@@ -43,7 +43,7 @@ elementInViewport = function (el) {
   );
 };
 
-document.onkeyup = function(e){
+document.onkeyup = function (e) {
   // Alt+S
   if (e.keyCode === 83 && e.altKey) {
     focusOnFirstInput();
