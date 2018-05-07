@@ -1,0 +1,21 @@
+{
+  "name": "Focus on first input (keyboard shortcut)",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "Adds a shortcut that focuses cursor in first text input.",
+  "icons": {
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "inj.js"
+      ]
+    }
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'"
+}
