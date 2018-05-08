@@ -1,27 +1,27 @@
 focusOnFirstInput = function () {
   if (document.activeElement.tagName != "INPUT") {
-    var inputs = document.body.getElementsByTagName("input")
-    focused = false
+    var inputs = document.body.getElementsByTagName("input");
+    focused = false;
     for (var i = 0; i < inputs.length; i++) {
-      var input = inputs[i]
+      var input = inputs[i];
       if (elementInViewport(input) && (input.type == "text" || input.type == "search")) {
-        input.focus()
-        focused = true
-        break
+        input.focus();
+        focused = true;
+        break;
       }
     }
 
     if (!focused && inputs.length > 0)
       for (var i = 0; i < inputs.length; i++) {
-        var input = inputs[i]
+        var input = inputs[i];
         if (elementInViewport(input)) {
-          input.focus()
-          focused = true
-          break
+          input.focus();
+          focused = true;
+          break;
         }
       }
   }
-}
+};
 
 elementInViewport = function (el) {
   var top = el.offsetTop;
@@ -48,4 +48,4 @@ document.onkeyup = function (e) {
   if (e.keyCode === 83 && e.altKey) {
     focusOnFirstInput();
   }
-}
+};
