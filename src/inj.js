@@ -6,7 +6,7 @@ getStyle = function(element, name)
 focusOnFirstInput = function () {
   if (document.activeElement.tagName != "INPUT") {
     const inputs = document.body.getElementsByTagName("input");
-    focused = false;
+    let focused = false;
 
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i];
