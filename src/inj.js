@@ -1,10 +1,20 @@
+getStyle = function(element, name)
+{
+  return element.currentStyle ? element.currentStyle[name] : window.getComputedStyle ? window.getComputedStyle(element, null).getPropertyValue(name) : null;
+};
+
 focusOnFirstInput = function () {
   if (document.activeElement.tagName != "INPUT") {
-    var inputs = document.body.getElementsByTagName("input");
+    const inputs = document.body.getElementsByTagName("input");
     focused = false;
-    for (var i = 0; i < inputs.length; i++) {
-      var input = inputs[i];
-      if (elementInViewport(input) && (input.type == "text" || input.type == "search")) {
+
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
+      const isHiddenByDisplay = getStyle(input, 'display') === 'none';
+      const isHiddenByVisibility = getStyle(input, 'visibility') === 'hidden';
+      const isHidden = isHiddenByDisplay || isHiddenByVisibility;
+      
+      if (!isHidden && elementInViewport(input) && (input.type == "text" || input.type == "search")) {
         input.focus();
         focused = true;
         break;
@@ -12,8 +22,8 @@ focusOnFirstInput = function () {
     }
 
     if (!focused && inputs.length > 0)
-      for (var i = 0; i < inputs.length; i++) {
-        var input = inputs[i];
+      for (let i = 0; i < inputs.length; i++) {
+        const input = inputs[i];
         if (elementInViewport(input)) {
           input.focus();
           focused = true;
@@ -24,23 +34,15 @@ focusOnFirstInput = function () {
 };
 
 elementInViewport = function (el) {
-  var top = el.offsetTop;
-  var left = el.offsetLeft;
-  var width = el.offsetWidth;
-  var height = el.offsetHeight;
-
-  while (el.offsetParent) {
-    el = el.offsetParent;
-    top += el.offsetTop;
-    left += el.offsetLeft;
-  }
-
-  return (
-    top >= window.pageYOffset &&
-    left >= window.pageXOffset &&
-    (top + height) <= (window.pageYOffset + window.innerHeight) &&
-    (left + width) <= (window.pageXOffset + window.innerWidth)
+  var bounding = el.getBoundingClientRect();
+  const isInViewport = (
+    bounding.top >= 0 &&
+    bounding.left >= 0 &&
+    bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
+
+  return isInViewport;
 };
 
 document.onkeyup = function (e) {
