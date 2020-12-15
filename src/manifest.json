@@ -1,6 +1,6 @@
 {
   "name": "Focus on first input (keyboard shortcut)",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "manifest_version": 2,
   "description": "Adds a shortcut that focuses the cursor on the first text input.",
   "icons": {
@@ -26,8 +26,7 @@
   "commands": {
     "focus-first-input": {
       "suggested_key": {
-        "default": "Alt+S",
-        "mac": "Alt+S"
+        "default": "Alt+S"
       },
       "description": "Focus on the first input on the screen"
     }
