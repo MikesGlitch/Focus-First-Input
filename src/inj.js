@@ -47,9 +47,11 @@ elementInViewport = function (el) {
   return isInViewport;
 };
 
-document.onkeyup = function (e) {
-  // Alt+S
-  if (e.keyCode === 83 && e.altKey) {
-    focusOnFirstInput();
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.action == "focusOnFirstInput") {
+      focusOnFirstInput();      
+      sendResponse({complete: true});
+    }
   }
-};
+);

@@ -17,5 +17,20 @@
       ]
     }
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "commands": {
+    "focus-first-input": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      },
+      "description": "Focus on the first input on the screen"
+    }
+  },
   "content_security_policy": "script-src 'self'; object-src 'self'"
 }
