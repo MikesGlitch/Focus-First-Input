@@ -13,10 +13,12 @@ focusOnFirstInput = function () {
       const isHiddenByDisplay = getStyle(input, 'display') === 'none';
       const isHiddenByVisibility = getStyle(input, 'visibility') === 'hidden';
       const isHidden = isHiddenByDisplay || isHiddenByVisibility;
-      const isTextField = input.type == "text" || input.type == "search";
+      const validInputTypes = ['text', 'search', 'email', 'number', 'password', 'tel', 'url'];
+
+      const isValidFocusableField = validInputTypes.find(x => x === input.type);
       const isDisabledOrReadonly = input.disabled || input.readOnly;
       
-      if (!isHidden && !isDisabledOrReadonly && elementInViewport(input) && isTextField) {
+      if (!isHidden && !isDisabledOrReadonly && elementInViewport(input) && isValidFocusableField) {
         input.focus();
         focused = true;
         break;
