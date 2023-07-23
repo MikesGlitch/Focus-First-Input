@@ -5,33 +5,34 @@ const getStyle = function(element, name)
 
 const focusOnFirstInput = function () {
   const validTagNames = ['INPUT', 'TEXTAREA']
-  let isFocusedOnValidInput = !!validTagNames.find((tagName) => tagName === document.activeElement.tagName)
+  let focusedOnValidInput = !!validTagNames.find((tagName) => tagName === document.activeElement.tagName)
   
-  if (!isFocusedOnValidInput) {
+  if (!focusedOnValidInput) {
     const textInputs = document.body.querySelectorAll("input,textarea")
     let focused = false
 
     for (let i = 0; i < textInputs.length; i++) {
       const textInput = textInputs[i]
-      const isHiddenByDisplay = getStyle(textInput, 'display') === 'none'
-      const isHiddenByVisibility = getStyle(textInput, 'visibility') === 'hidden'
-      const isHidden = isHiddenByDisplay || isHiddenByVisibility
-      const isDisabledOrReadonly = textInput.disabled || textInput.readOnly
+      const hiddenByDisplay = getStyle(textInput, 'display') === 'none'
+      const hiddenByVisibility = getStyle(textInput, 'visibility') === 'hidden'
+      const hidden = hiddenByDisplay || hiddenByVisibility
+      const disabledOrReadonly = textInput.disabled || textInput.readOnly
       
-      let isValidFocusableField = false
+      let validFocusableField = false
       switch (textInput.tagName) {
         case 'INPUT': {
           const validInputTypes = ['text', 'search', 'email', 'number', 'password', 'tel', 'url']
-          isValidFocusableField = !!validInputTypes.find(validInputType => validInputType === textInput.type)
+          validFocusableField = !!validInputTypes.find(validInputType => validInputType === textInput.type)
           break
         }
         case 'TEXTAREA': 
-          isValidFocusableField = true
+          validFocusableField = true
           break
       }
       
-      if (!isHidden && !isDisabledOrReadonly && elementInViewport(textInput) && isValidFocusableField) {
+      if (!hidden && !disabledOrReadonly && elementInViewport(textInput) && validFocusableField) {
         textInput.focus()
+        textInput.setSelectionRange(textInput.value.length, textInput.value.length);
         focused = true
         break
       }
@@ -51,14 +52,14 @@ const focusOnFirstInput = function () {
 
 const elementInViewport = function (el) {
   var bounding = el.getBoundingClientRect()
-  const isInViewport = (
+  const inViewport = (
     bounding.top >= 0 &&
     bounding.left >= 0 &&
     bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
     bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
   )
 
-  return isInViewport
+  return inViewport
 }
 
 // eslint-disable-next-line no-undef
