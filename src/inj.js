@@ -4,20 +4,16 @@ function getStyle(element, name)
 }
 
 function isValidFocusableInput(textInput) {
-  let validFocusableField = false
-
   switch (textInput.tagName) {
     case 'INPUT': {
       const validInputTypes = ['text', 'search', 'email', 'number', 'password', 'tel', 'url']
-      validFocusableField = !!validInputTypes.find(validInputType => validInputType === textInput.type)
-      break
+      return !!validInputTypes.find(validInputType => validInputType === textInput.type)
     }
     case 'TEXTAREA': 
-      validFocusableField = true
-      break
+      return true
   }
 
-  return validFocusableField
+  return false
 }
 
 function focusOnFirstInput () {
@@ -37,7 +33,7 @@ function focusOnFirstInput () {
       
       if (!hidden && !disabledOrReadonly && elementInViewport(textInput) && validFocusableField) {
         textInput.focus()
-        textInput.setSelectionRange(textInput.value.length, textInput.value.length);
+        textInput.setSelectionRange(textInput.value.length, textInput.value.length)
         focused = true
         break
       }
@@ -56,7 +52,7 @@ function focusOnFirstInput () {
 }
 
 function elementInViewport(el) {
-  var bounding = el.getBoundingClientRect()
+  const bounding = el.getBoundingClientRect()
   const inViewport = (
     bounding.top >= 0 &&
     bounding.left >= 0 &&
