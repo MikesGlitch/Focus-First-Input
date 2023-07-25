@@ -1,6 +1,6 @@
 {
   "name": "Focus on first input (keyboard shortcut)",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "manifest_version": 2,
   "description": "Adds a shortcut that focuses the cursor on the first text input.",
   "icons": {

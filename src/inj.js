@@ -1,11 +1,27 @@
-const getStyle = function(element, name)
+function getStyle(element, name)
 {
   return element.currentStyle ? element.currentStyle[name] : window.getComputedStyle ? window.getComputedStyle(element, null).getPropertyValue(name) : null
 }
 
-const focusOnFirstInput = function () {
-  const validTagNames = ['INPUT', 'TEXTAREA']
-  let focusedOnValidInput = !!validTagNames.find((tagName) => tagName === document.activeElement.tagName)
+function isValidFocusableInput(textInput) {
+  let validFocusableField = false
+
+  switch (textInput.tagName) {
+    case 'INPUT': {
+      const validInputTypes = ['text', 'search', 'email', 'number', 'password', 'tel', 'url']
+      validFocusableField = !!validInputTypes.find(validInputType => validInputType === textInput.type)
+      break
+    }
+    case 'TEXTAREA': 
+      validFocusableField = true
+      break
+  }
+
+  return validFocusableField
+}
+
+function focusOnFirstInput () {
+  const focusedOnValidInput = isValidFocusableInput(document.activeElement)
   
   if (!focusedOnValidInput) {
     const textInputs = document.body.querySelectorAll("input,textarea")
@@ -17,18 +33,7 @@ const focusOnFirstInput = function () {
       const hiddenByVisibility = getStyle(textInput, 'visibility') === 'hidden'
       const hidden = hiddenByDisplay || hiddenByVisibility
       const disabledOrReadonly = textInput.disabled || textInput.readOnly
-      
-      let validFocusableField = false
-      switch (textInput.tagName) {
-        case 'INPUT': {
-          const validInputTypes = ['text', 'search', 'email', 'number', 'password', 'tel', 'url']
-          validFocusableField = !!validInputTypes.find(validInputType => validInputType === textInput.type)
-          break
-        }
-        case 'TEXTAREA': 
-          validFocusableField = true
-          break
-      }
+      const validFocusableField = isValidFocusableInput(textInput)
       
       if (!hidden && !disabledOrReadonly && elementInViewport(textInput) && validFocusableField) {
         textInput.focus()
@@ -50,7 +55,7 @@ const focusOnFirstInput = function () {
   }
 }
 
-const elementInViewport = function (el) {
+function elementInViewport(el) {
   var bounding = el.getBoundingClientRect()
   const inViewport = (
     bounding.top >= 0 &&
