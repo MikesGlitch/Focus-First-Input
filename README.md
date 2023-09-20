@@ -1,4 +1,7 @@
 # Focus on first input (keyboard shortcut)
+
+Add the extension here: [Google Web Store](https://chrome.google.com/webstore/detail/focus-on-first-input-keyb/ofngolgonfcpdanjehfjmcealkclchjg)
+
 The shortcut is "Alt + S"
 
 When the shortcut is pressed it will focus the cursor on the first text input allowing you to immediately write without using mouse. Useful for websites like Amazon.
