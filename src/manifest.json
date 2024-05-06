@@ -1,7 +1,7 @@
 {
   "name": "Focus on first input (keyboard shortcut)",
-  "version": "0.1.8",
-  "manifest_version": 2,
+  "version": "0.1.9",
+  "manifest_version": 3,
   "description": "Adds a shortcut that focuses the cursor on the first text input.",
   "icons": {
     "128": "icon.png"
@@ -18,10 +18,7 @@
     }
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
+    "service_worker": "service-worker.js"
   },
   "commands": {
     "focus-first-input": {
@@ -31,5 +28,7 @@
       "description": "Focus on the first input on the screen"
     }
   },
-  "content_security_policy": "script-src 'self'; object-src 'self'"
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
 }
