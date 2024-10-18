@@ -10,3 +10,6 @@ Add the extension here: [Google Web Store](https://chrome.google.com/webstore/de
 I made a quick intro video for the extension here, it's available on YouTube.
 
 [![Dev Intro](https://img.youtube.com/vi/qc2EWoeUInc/0.jpg)](https://www.youtube.com/watch?v=qc2EWoeUInc)
+
+
+This project is tested with BrowserStack
