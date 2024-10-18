@@ -13,3 +13,4 @@ I made a quick intro video for the extension here, it's available on YouTube.
 
 
 This project is tested with BrowserStack.
+This project is tested with BrowserStack
