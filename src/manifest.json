@@ -1,6 +1,6 @@
 {
   "name": "Focus on first input (keyboard shortcut)",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "manifest_version": 3,
   "description": "Adds a shortcut that focuses the cursor on the first text input.",
   "icons": {
@@ -26,6 +26,12 @@
         "default": "Alt+S"
       },
       "description": "Focus on the first input on the screen"
+    },
+    "focus-first-input-on-page": {
+      "suggested_key": {
+        "default": "Alt+I"
+      },
+      "description": "Focus on the first input on the page"
     }
   },
   "content_security_policy": {
