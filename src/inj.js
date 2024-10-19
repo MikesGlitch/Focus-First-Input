@@ -54,10 +54,16 @@ function focusOnFirstInput(settings = { scopeToViewport: true }) {
       validFocusableField
     ) {
       textInput.focus();
-      textInput.setSelectionRange(
-        textInput.value.length,
-        textInput.value.length
-      );
+      try {
+        // Attempt to select text in the input - this will fail on some input types (e.g. email, number)
+        textInput.setSelectionRange(
+          textInput.value.length,
+          textInput.value.length
+        );
+      } catch(error) {
+        // Ignore errors when trying to set the selection range
+      }
+
       focused = true;
       break;
     }
