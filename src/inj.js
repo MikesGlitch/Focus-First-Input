@@ -25,8 +25,7 @@ function isValidFocusableInput(textInput) {
     case "TEXTAREA":
       return true;
   }
-
-  return false;
+  return textInput.isContentEditable;
 }
 
 function isElementInScope(el, scopeToViewport) {
@@ -35,7 +34,7 @@ function isElementInScope(el, scopeToViewport) {
 }
 
 function focusOnFirstInput(settings = { scopeToViewport: true }) {
-  const textInputs = document.body.querySelectorAll("input,textarea");
+  const textInputs = document.body.querySelectorAll('input,textarea,[contenteditable="true"]');
   let focused = false;
 
   for (let i = 0; i < textInputs.length; i++) {
@@ -54,14 +53,24 @@ function focusOnFirstInput(settings = { scopeToViewport: true }) {
       validFocusableField
     ) {
       textInput.focus();
-      try {
-        // Attempt to select text in the input - this will fail on some input types (e.g. email, number)
-        textInput.setSelectionRange(
-          textInput.value.length,
-          textInput.value.length
-        );
-      } catch(error) {
-        // Ignore errors when trying to set the selection range
+      if (textInput.isContentEditable) {
+        // ContentEditable has no setSelectionRange
+        const range = document.createRange();
+        range.selectNodeContents(textInput);
+        range.collapse(false); // collapse to end
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else {
+        try {
+          // Attempt to select text in the input - this will fail on some input types (e.g. email, number)
+          textInput.setSelectionRange(
+            textInput.value.length,
+            textInput.value.length
+          );
+        } catch(error) {
+          // Ignore errors when trying to set the selection range
+        }
       }
 
       focused = true;
